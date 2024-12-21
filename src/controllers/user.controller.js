@@ -1,4 +1,4 @@
-import { User } from "../models/user.model";
+import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
@@ -52,11 +52,11 @@ export const login = async (req, res) => {
       });
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if(!isPasswordMatch){
-        return res.status(400).json({
-            success: false,
-            message: "Incorrect email or password",
-          });
+    if (!isPasswordMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Incorrect email or password",
+      });
     }
 
     generateToken(res, user, `Welcome back ${user.name}`);
